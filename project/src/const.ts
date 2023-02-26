@@ -22,3 +22,18 @@ export enum CameraType {
   Snapshot = 'Моментальная',
   Collection = 'Коллекционная'
 }
+
+export const SortOrder = {
+  Asc: { name: 'up', value: 'По возрастанию' },
+  Desc: { name: 'down', value: 'По убыванию' }
+} as const;
+
+export enum SortType {
+  SortPrice = 'по цене',
+  SortPopular = 'по популярности'
+}
+
+export enum NameSpace {
+  Camera = 'CAMERA'
+}
+
