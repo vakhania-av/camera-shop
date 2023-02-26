@@ -5,7 +5,7 @@ export enum AppRoute {
   Camera = 'cameras/',
 }
 
-export enum Camera {
+export enum Category {
   Photocamera = 'Фотокамера',
   Videocamera = 'Видеокамера'
 }
