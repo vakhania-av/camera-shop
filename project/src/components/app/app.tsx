@@ -15,9 +15,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.Root}>
             <Route index element={<MainPage />} />
             <Route path={AppRoute.Basket} element={<BasketPage />} />
-            <Route path={AppRoute.Camera}>
-              <Route path={AppRoute.Product} element={<ProductPage />} />
-            </Route>
+            <Route path={AppRoute.Product} element={<ProductPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

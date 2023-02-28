@@ -1,9 +1,25 @@
+// API + Backend
+
 export enum AppRoute {
   Root = '/',
   Product = ':id',
   Basket = '/basket',
   Camera = 'cameras/',
 }
+
+export enum APIRoute {
+  Cameras = '/cameras',
+  Promo = '/promo'
+}
+
+export enum FetchStatus {
+  Success = 'Success',
+  Pending = 'Pending',
+  Idle = 'Idle',
+  Error = 'Error'
+}
+
+// Products + Sorting
 
 export enum Category {
   Photocamera = 'Фотокамера',
@@ -36,4 +52,6 @@ export enum SortType {
 export enum NameSpace {
   Camera = 'CAMERA'
 }
+
+export const MAX_RATING = 5;
 
