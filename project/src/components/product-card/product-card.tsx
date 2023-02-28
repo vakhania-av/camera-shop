@@ -34,13 +34,13 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
           {fullStars.map(() => {
             const key = nanoid();
 
-            return <IconStar key={key} full />
+            return <IconStar key={key} full />;
           })}
 
           {emptyStars.map(() => {
             const key = nanoid();
 
-            return <IconStar key={key} />
+            return <IconStar key={key} />;
           })}
           <p className="visually-hidden">Рейтинг: {camera.rating}</p>
           <p className="rate__count">

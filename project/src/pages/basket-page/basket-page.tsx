@@ -140,7 +140,7 @@ function BasketPage(): JSX.Element {
                     <p className="basket-item__title">Фотоаппарат «Орлёнок»</p>
                     <ul className="basket-item__list">
                       <li className="basket-item__list-item">
-                        <span className="basket-item__article">Артикул:</span>{" "}
+                        <span className="basket-item__article">Артикул:</span>{' '}
                         <span className="basket-item__number">O78DFGSD832</span>
                       </li>
                       <li className="basket-item__list-item">
@@ -163,10 +163,8 @@ function BasketPage(): JSX.Element {
                         <use xlinkHref="#icon-arrow"></use>
                       </svg>
                     </button>
-                    <label
-                      className="visually-hidden"
-                      htmlFor="counter1"
-                    ></label>
+                    <label className="visually-hidden" htmlFor="counter1">
+                    </label>
                     <input
                       type="number"
                       id="counter1"
@@ -219,7 +217,7 @@ function BasketPage(): JSX.Element {
                     </p>
                     <ul className="basket-item__list">
                       <li className="basket-item__list-item">
-                        <span className="basket-item__article">Артикул:</span>{" "}
+                        <span className="basket-item__article">Артикул:</span>{' '}
                         <span className="basket-item__number">DA4IU67AD5</span>
                       </li>
                       <li className="basket-item__list-item">
@@ -243,10 +241,8 @@ function BasketPage(): JSX.Element {
                         <use xlinkHref="#icon-arrow"></use>
                       </svg>
                     </button>
-                    <label
-                      className="visually-hidden"
-                      htmlFor="counter2"
-                    ></label>
+                    <label className="visually-hidden" htmlFor="counter2">
+                    </label>
                     <input
                       type="number"
                       id="counter2"

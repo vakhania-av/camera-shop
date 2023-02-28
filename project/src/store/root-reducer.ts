@@ -3,5 +3,5 @@ import { NameSpace } from '../const';
 import { cameras } from './cameras/cameras';
 
 export const rootReducer = combineReducers({
-    [NameSpace.Camera]: cameras.reducer
+  [NameSpace.Camera]: cameras.reducer,
 });

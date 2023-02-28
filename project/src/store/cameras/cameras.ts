@@ -14,7 +14,7 @@ const initialState: Cameras = {
   cameras: [],
   promo: null,
   fetchCamerasStatus: FetchStatus.Idle,
-  fetchPromoStatus: FetchStatus.Idle
+  fetchPromoStatus: FetchStatus.Idle,
 };
 
 export const cameras = createSlice({
@@ -42,6 +42,6 @@ export const cameras = createSlice({
       })
       .addCase(fetchPromoAction.rejected, (state) => {
         state.fetchPromoStatus = FetchStatus.Error;
-      })
+      });
   },
 });
