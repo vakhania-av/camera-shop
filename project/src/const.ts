@@ -1,3 +1,12 @@
+// constants
+export const MAX_RATING = 5;
+
+export const START_PAGE = 1;
+
+export const CAMERAS_PER_PAGE = 9;
+
+export const TOTAL_COUNT_HEADER = 'x-total-count';
+
 // API + Backend
 
 export enum AppRoute {
@@ -5,6 +14,7 @@ export enum AppRoute {
   Product = ':id',
   Basket = '/basket',
   Camera = 'cameras/',
+  Catalog = 'catalog/:page'
 }
 
 export enum APIRoute {
@@ -50,8 +60,6 @@ export enum SortType {
 }
 
 export enum NameSpace {
-  Camera = 'CAMERA'
+  Camera = 'CAMERA',
+  Ui = 'UI'
 }
-
-export const MAX_RATING = 5;
-

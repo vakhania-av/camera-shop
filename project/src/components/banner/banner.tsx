@@ -16,11 +16,11 @@ function Banner(): JSX.Element {
       <picture>
         <source
           type='image/webp'
-          srcSet={`${promo.previewImgWebp}, ${promo.previewImgWebp2x} 2x`}
+          srcSet={`/${promo.previewImgWebp}, /${promo.previewImgWebp2x} 2x`}
         />
         <img
-          src={promo.previewImg}
-          srcSet={`${promo.previewImgWebp2x} 2x`}
+          src={`/${promo.previewImg}`}
+          srcSet={`/${promo.previewImgWebp2x} 2x`}
           width='1280'
           height='280'
           alt='баннер'

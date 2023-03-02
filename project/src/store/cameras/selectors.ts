@@ -4,8 +4,8 @@ import { Camera, Promo } from '../../types/camera';
 import { State } from '../../types/state';
 
 // Cameras
-export const getCameras = (state: State): Camera[] => state[NameSpace.Camera].cameras;
 export const getCamerasFetchStatus = (state: State): FetchStatus => state[NameSpace.Camera].fetchCamerasStatus;
+export const getCamerasOnPage = (state: State): Camera[] => state[NameSpace.Camera].camerasOnPage;
 
 // Promo
 export const getPromo = (state:State): Promo | null => state[NameSpace.Camera].promo;
