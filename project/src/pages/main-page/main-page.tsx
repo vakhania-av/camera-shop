@@ -3,6 +3,7 @@ import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import FilterForm from '../../components/filter-form/filter-form';
 import Layout from '../../components/layout/layout';
+import ModalAddCart from '../../components/modal-add-cart/modal-add-cart';
 import Pagination from '../../components/pagination/pagination';
 import ProductCard from '../../components/product-card/product-card';
 import SortingForm from '../../components/sorting-form/sorting-form';
@@ -56,6 +57,7 @@ function MainPage(): JSX.Element {
               </div>
             </section>
           </div>
+          <ModalAddCart />
         </main>
       </Layout>
     </div>

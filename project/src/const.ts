@@ -7,6 +7,8 @@ export const CAMERAS_PER_PAGE = 9;
 
 export const TOTAL_COUNT_HEADER = 'x-total-count';
 
+export const MODAL_OPEN_CLASS = 'scroll-lock';
+
 // API + Backend
 
 export enum AppRoute {
@@ -61,5 +63,6 @@ export enum SortType {
 
 export enum NameSpace {
   Camera = 'CAMERA',
-  Ui = 'UI'
+  Ui = 'UI',
+  Modals = 'MODALS'
 }
