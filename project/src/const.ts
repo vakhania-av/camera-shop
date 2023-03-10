@@ -66,3 +66,8 @@ export enum NameSpace {
   Ui = 'UI',
   Modals = 'MODALS'
 }
+
+export enum TabType {
+  Characteristic = 'characteristic',
+  Description = 'description'
+}
