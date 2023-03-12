@@ -5,6 +5,8 @@ export const START_PAGE = 1;
 
 export const CAMERAS_PER_PAGE = 9;
 
+export const SIMILARS_COUNT = 3;
+
 export const TOTAL_COUNT_HEADER = 'x-total-count';
 
 export const MODAL_OPEN_CLASS = 'scroll-lock';
@@ -21,7 +23,8 @@ export enum AppRoute {
 
 export enum APIRoute {
   Cameras = '/cameras',
-  Promo = '/promo'
+  Promo = '/promo',
+  Similar = '/similar'
 }
 
 export enum FetchStatus {

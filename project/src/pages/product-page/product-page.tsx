@@ -9,8 +9,8 @@ import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import { MAX_RATING, TabType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchCurrentCameraAction } from '../../store/api-actions';
-import { getCurrentProduct, selectCurrentProductStatus } from '../../store/cameras/selectors';
+import { fetchCurrentCameraAction, fetchSimilarCamerasAction } from '../../store/api-actions';
+import { getCurrentProduct, getSimilarCameras, selectCurrentProductStatus } from '../../store/cameras/selectors';
 import { openAddToCartModal, setActiveCamera } from '../../store/modals/modals';
 import { getAddToCartModalStatus } from '../../store/modals/selectors';
 
@@ -25,6 +25,7 @@ function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const camera = useAppSelector(getCurrentProduct);
+  const similarCameras = useAppSelector(getSimilarCameras);
   const isModalActive = useAppSelector(getAddToCartModalStatus);
   const { isError, isLoading } = useAppSelector(selectCurrentProductStatus);
 
@@ -33,6 +34,7 @@ function ProductPage(): JSX.Element {
 
     if (id) {
       dispatch(fetchCurrentCameraAction(id));
+      dispatch(fetchSimilarCamerasAction(id));
     }
   }, [id, dispatch]);
 
@@ -151,7 +153,7 @@ function ProductPage(): JSX.Element {
               </section>
             </div>
             <div className='page-content__section'>
-              <SimilarProducts />
+              { similarCameras.length && <SimilarProducts cameras={similarCameras} /> }
             </div>
             <div className='page-content__section'>
               <ReviewBlock />

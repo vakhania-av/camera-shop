@@ -15,6 +15,10 @@ export const getPromoFetchStatus = (state: State): FetchStatus => state[NameSpac
 export const getCurrentProduct = (state: State): Camera | null => state[NameSpace.Camera].currentCamera;
 export const getCurrentProductFetchStatus = (state: State): FetchStatus => state[NameSpace.Camera].fetchCurrentCameraStatus;
 
+// Similar
+export const getSimilarCameras = (state: State): Camera[] => state[NameSpace.Camera].similarCameras;
+export const getSimilarCamerasFetchStatus = (state: State): FetchStatus => state[NameSpace.Camera].fetchSimilarCamerasStatus;
+
 // Selectors
 export const selectPromoStatus = createSelector(
   [getPromoFetchStatus],
@@ -27,6 +31,15 @@ export const selectPromoStatus = createSelector(
 
 export const selectCurrentProductStatus = createSelector(
   [getCurrentProductFetchStatus],
+  (status) => ({
+    isLoading: [FetchStatus.Idle, FetchStatus.Pending].includes(status),
+    isSuccess: status === FetchStatus.Success,
+    isError: status === FetchStatus.Error,
+  })
+);
+
+export const selectSimilarCamerasStatus = createSelector(
+  [getSimilarCamerasFetchStatus],
   (status) => ({
     isLoading: [FetchStatus.Idle, FetchStatus.Pending].includes(status),
     isSuccess: status === FetchStatus.Success,

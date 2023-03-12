@@ -62,3 +62,19 @@ export const fetchCurrentCameraAction = createAsyncThunk<Camera, string,
     return rejectWithValue(err);
   }
 });
+
+export const fetchSimilarCamerasAction = createAsyncThunk<Camera[], string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/fetchSimilarCameras', async (id, { extra: api, rejectWithValue }) => {
+  try {
+    const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}/${id}${APIRoute.Similar}`);
+
+    return data;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+});

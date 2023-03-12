@@ -6,12 +6,17 @@ import { openAddToCartModal, setActiveCamera } from '../../store/modals/modals';
 import { Camera } from '../../types/camera';
 import IconStar from '../icon-star/icon-star';
 
+import classNames from 'classnames';
+
 type ProductCardProps = {
   camera: Camera;
+  isActive?: boolean;
 };
 
-function ProductCard({ camera }: ProductCardProps): JSX.Element {
+function ProductCard({ camera, isActive }: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const cardClass = classNames('product-card', { 'is-active': isActive });
 
   const fullStars = Array(camera.rating).fill(<IconStar full />);
   const emptyStars = Array(MAX_RATING - camera.rating).fill(<IconStar />);
@@ -22,7 +27,7 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
   };
 
   return (
-    <div className="product-card">
+    <div className={cardClass}>
       <div className="product-card__img">
         <picture>
           <source
