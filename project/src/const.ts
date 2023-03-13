@@ -7,6 +7,8 @@ export const CAMERAS_PER_PAGE = 9;
 
 export const SIMILARS_COUNT = 3;
 
+export const REVIEW_COUNT_PER_STEP = 3;
+
 export const TOTAL_COUNT_HEADER = 'x-total-count';
 
 export const MODAL_OPEN_CLASS = 'scroll-lock';
@@ -24,7 +26,8 @@ export enum AppRoute {
 export enum APIRoute {
   Cameras = '/cameras',
   Promo = '/promo',
-  Similar = '/similar'
+  Similar = '/similar',
+  Reviews = '/reviews'
 }
 
 export enum FetchStatus {
@@ -67,7 +70,8 @@ export enum SortType {
 export enum NameSpace {
   Camera = 'CAMERA',
   Ui = 'UI',
-  Modals = 'MODALS'
+  Modals = 'MODALS',
+  Reviews = 'REVIEWS'
 }
 
 export enum TabType {

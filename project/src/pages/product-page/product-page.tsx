@@ -9,7 +9,7 @@ import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import { MAX_RATING, TabType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchCurrentCameraAction, fetchSimilarCamerasAction } from '../../store/api-actions';
+import { fetchCurrentCameraAction, fetchReviewsAction, fetchSimilarCamerasAction } from '../../store/api-actions';
 import { getCurrentProduct, getSimilarCameras, selectCurrentProductStatus } from '../../store/cameras/selectors';
 import { openAddToCartModal, setActiveCamera } from '../../store/modals/modals';
 import { getAddToCartModalStatus } from '../../store/modals/selectors';
@@ -17,6 +17,7 @@ import { getAddToCartModalStatus } from '../../store/modals/selectors';
 import classnames from 'classnames';
 import TabCharacteristic from '../../components/tab-characteristic/tab-characteristic';
 import TabDescription from '../../components/tab-description/tab-description';
+import { getReviews } from '../../store/reviews/selectors';
 
 function ProductPage(): JSX.Element {
   const [tabType, setTabType] = useState<TabType>(TabType.Characteristic);
@@ -26,6 +27,7 @@ function ProductPage(): JSX.Element {
 
   const camera = useAppSelector(getCurrentProduct);
   const similarCameras = useAppSelector(getSimilarCameras);
+  const reviews = useAppSelector(getReviews);
   const isModalActive = useAppSelector(getAddToCartModalStatus);
   const { isError, isLoading } = useAppSelector(selectCurrentProductStatus);
 
@@ -35,6 +37,7 @@ function ProductPage(): JSX.Element {
     if (id) {
       dispatch(fetchCurrentCameraAction(id));
       dispatch(fetchSimilarCamerasAction(id));
+      dispatch(fetchReviewsAction(id));
     }
   }, [id, dispatch]);
 
@@ -156,7 +159,7 @@ function ProductPage(): JSX.Element {
               { similarCameras.length && <SimilarProducts cameras={similarCameras} /> }
             </div>
             <div className='page-content__section'>
-              <ReviewBlock />
+              { reviews.length && <ReviewBlock reviews={reviews} /> }
             </div>
           </div>
           { isModalActive && <ModalAddCart /> }

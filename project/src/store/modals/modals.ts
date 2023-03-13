@@ -5,11 +5,15 @@ import { Camera } from '../../types/camera';
 type Modals = {
   activeCamera: Camera | null;
   isAddToCartOpen: boolean;
+  isReviewOpen: boolean;
+  isReviewSuccessOpen: boolean;
 };
 
 const initialState: Modals = {
   activeCamera: null,
   isAddToCartOpen: false,
+  isReviewOpen: false,
+  isReviewSuccessOpen: false
 };
 
 export const modals = createSlice({
@@ -28,6 +32,18 @@ export const modals = createSlice({
     clearActiveCamera: (state) => {
       state.activeCamera = null;
     },
+    openReviewModal: (state) => {
+      state.isReviewOpen = true;
+    },
+    closeReviewModal: (state) => {
+      state.isReviewOpen = false;
+    },
+    openReviewSuccessModal: (state) => {
+      state.isReviewSuccessOpen = true;
+    },
+    closeReviewSuccessModal: (state) => {
+      state.isReviewSuccessOpen = false;
+    }
   },
 });
 
@@ -36,4 +52,7 @@ export const {
   clearActiveCamera,
   openAddToCartModal,
   closeAddToCartModal,
+  openReviewModal,
+  closeReviewSuccessModal,
+  openReviewSuccessModal
 } = modals.actions;
