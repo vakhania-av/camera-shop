@@ -45,6 +45,11 @@ export const reviews = createSlice({
       })
       .addCase(postReviewAction.rejected, (state) => {
         state.postReviewStatus = FetchStatus.Error;
+      })
+      .addCase(postReviewAction.pending, (state) => {
+        state.postReviewStatus = FetchStatus.Pending;
       });
   },
 });
+
+export const { clearPostReviewStatus } = reviews.actions;
