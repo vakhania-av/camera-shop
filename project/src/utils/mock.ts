@@ -1,7 +1,7 @@
 import { commerce, datatype, date, image, lorem, name, random } from 'faker';
 import { MAX_RATING, MIN_RATING } from '../const';
 import { Camera, Promo } from '../types/camera';
-import { Review } from '../types/review';
+import { Review, ReviewPost } from '../types/review';
 
 const getRandomInteger = (min: number, max: number): number => {
   const rand = min + Math.random() * (max + 1 - min);
@@ -59,3 +59,13 @@ export const makeFakePromo = (): Promo =>
     previewImgWebp: image.technics(),
     previewImgWebp2x: image.technics(),
   } as Promo);
+
+export const makeFakeNewReview = (): ReviewPost =>
+  ({
+    cameraId: datatype.number(),
+    userName: name.firstName(),
+    advantage: lorem.sentence(),
+    disadvantage: lorem.sentence(),
+    review: lorem.sentences(),
+    rating: getRandomInteger(MIN_RATING, MAX_RATING),
+  } as ReviewPost);
