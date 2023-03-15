@@ -53,6 +53,7 @@ export const {
   openAddToCartModal,
   closeAddToCartModal,
   openReviewModal,
+  closeReviewModal,
   closeReviewSuccessModal,
   openReviewSuccessModal
 } = modals.actions;

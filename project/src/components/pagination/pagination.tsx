@@ -73,18 +73,6 @@ function Pagination(): JSX.Element {
             </Link>
           </li>
         )}
-
-        <li className='pagination__item'>
-          <a className='pagination__link pagination__link--active' href='1'>
-            1
-          </a>
-        </li>
-
-        <li className='pagination__item'>
-          <a className='pagination__link pagination__link--text' href='2'>
-            Далее
-          </a>
-        </li>
       </ul>
     </div>
   );

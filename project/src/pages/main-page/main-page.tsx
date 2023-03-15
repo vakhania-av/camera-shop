@@ -10,7 +10,7 @@ import SortingForm from '../../components/sorting-form/sorting-form';
 import { CAMERAS_PER_PAGE } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCamerasPerPageAction } from '../../store/api-actions';
-import { getCamerasOnPage } from '../../store/cameras/selectors';
+import { getCamerasOnPage, selectCamerasStatus } from '../../store/cameras/selectors';
 import { getAddToCartModalStatus } from '../../store/modals/selectors';
 import { getCurrentPage } from '../../store/ui/selectors';
 
@@ -21,11 +21,17 @@ function MainPage(): JSX.Element {
   const currentPage = useAppSelector(getCurrentPage);
   const isModalActive = useAppSelector(getAddToCartModalStatus);
 
+  const { isError } = useAppSelector(selectCamerasStatus);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const startIndex = (currentPage - 1) * CAMERAS_PER_PAGE;
     dispatch(fetchCamerasPerPageAction([startIndex, CAMERAS_PER_PAGE]));
   }, [currentPage, dispatch]);
+
+  if (isError) {
+    return <p>Server unavailable. Try reload page!</p>;
+  }
 
   return (
     <div className="wrapper">

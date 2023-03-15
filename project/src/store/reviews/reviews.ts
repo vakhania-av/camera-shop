@@ -45,6 +45,6 @@ export const reviews = createSlice({
       })
       .addCase(postReviewAction.rejected, (state) => {
         state.postReviewStatus = FetchStatus.Error;
-      })
+      });
   },
 });

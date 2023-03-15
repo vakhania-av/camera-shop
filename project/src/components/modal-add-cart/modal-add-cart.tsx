@@ -1,6 +1,12 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { clearActiveCamera, closeAddToCartModal } from '../../store/modals/modals';
-import { getActiveProduct, getAddToCartModalStatus } from '../../store/modals/selectors';
+import {
+  clearActiveCamera,
+  closeAddToCartModal,
+} from '../../store/modals/modals';
+import {
+  getActiveProduct,
+  getAddToCartModalStatus,
+} from '../../store/modals/selectors';
 
 import classnames from 'classnames';
 
@@ -59,9 +65,13 @@ function ModalAddCart(): JSX.Element {
   } = camera;
 
   return (
-    <div className={modalclassName} onClick={handleCloseBtnClick}>
+    <div
+      className={modalclassName}
+      onClick={handleCloseBtnClick}
+      data-testid='modal'
+    >
       <div className='modal__wrapper'>
-        <div className='modal__overlay' />
+        <div className='modal__overlay'></div>
         <div
           className='modal__content'
           onClick={(evt) => evt.stopPropagation()}

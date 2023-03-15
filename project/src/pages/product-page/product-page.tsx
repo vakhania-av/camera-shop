@@ -12,23 +12,28 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCurrentCameraAction, fetchReviewsAction, fetchSimilarCamerasAction } from '../../store/api-actions';
 import { getCurrentProduct, getSimilarCameras, selectCurrentProductStatus } from '../../store/cameras/selectors';
 import { openAddToCartModal, setActiveCamera } from '../../store/modals/modals';
-import { getAddToCartModalStatus } from '../../store/modals/selectors';
+import { getAddToCartModalStatus, getReviewModalStatus, getReviewSuccessModalStatus } from '../../store/modals/selectors';
 
 import classnames from 'classnames';
 import TabCharacteristic from '../../components/tab-characteristic/tab-characteristic';
 import TabDescription from '../../components/tab-description/tab-description';
 import { getReviews } from '../../store/reviews/selectors';
+import ModalReviewSuccess from '../../components/modal-review-success/modal-review-success';
+import ModalReview from '../../components/modal-review/modal-review';
 
 function ProductPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const [tabType, setTabType] = useState<TabType>(TabType.Characteristic);
   const { id } = useParams();
-
-  const dispatch = useAppDispatch();
 
   const camera = useAppSelector(getCurrentProduct);
   const similarCameras = useAppSelector(getSimilarCameras);
   const reviews = useAppSelector(getReviews);
-  const isModalActive = useAppSelector(getAddToCartModalStatus);
+
+  const isModalBasketActive = useAppSelector(getAddToCartModalStatus);
+  const isReviewModalActive = useAppSelector(getReviewModalStatus);
+  const isReviewSuccessActive = useAppSelector(getReviewSuccessModalStatus);
+
   const { isError, isLoading } = useAppSelector(selectCurrentProductStatus);
 
   useEffect(() => {
@@ -162,7 +167,9 @@ function ProductPage(): JSX.Element {
               { reviews.length && <ReviewBlock reviews={reviews} /> }
             </div>
           </div>
-          { isModalActive && <ModalAddCart /> }
+          { isModalBasketActive && <ModalAddCart /> }
+          { isReviewModalActive && <ModalReview /> }
+          { isReviewSuccessActive && <ModalReviewSuccess />}
         </main>
         <a className='up-btn' href='#header'>
           <svg width='12' height='18' aria-hidden='true'>

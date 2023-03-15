@@ -33,10 +33,11 @@ function Header(): JSX.Element {
           </ul>
         </nav>
         <SearchForm />
-        <Link className="header__basket-link" to={AppRoute.Root}>
+        <Link className="header__basket-link" to={AppRoute.Basket}>
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
+          <span className="header__basket-count">3</span>
         </Link>
       </div>
     </header>

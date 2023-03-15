@@ -10,10 +10,10 @@ type TabCharacteristicProps = {
 
 function TabCharacteristic({ camera, tabType }: TabCharacteristicProps): JSX.Element {
   const className = classnames('tabs__element', { 'is-active': tabType === TabType.Characteristic });
-  const { vendorCode, type, category, level } = camera;
+  const { vendorCode, category, type, level } = camera;
 
   return (
-    <div className={className}>
+    <div className={className} data-testid='tab-characteristic'>
       <ul className='product__tabs-list'>
         <li className='item-list'>
           <span className='item-list__title'>Артикул:</span>

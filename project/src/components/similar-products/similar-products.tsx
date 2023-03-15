@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { SIMILARS_COUNT } from "../../const";
-import { Camera } from "../../types/camera";
-import ProductCard from "../product-card/product-card";
+import { useState } from 'react';
+import { SIMILARS_COUNT } from '../../const';
+import { Camera } from '../../types/camera';
+import ProductCard from '../product-card/product-card';
 
 type SimilarProductsProps = {
   cameras: Camera[];
@@ -22,7 +22,7 @@ function SimilarProducts({ cameras }: SimilarProductsProps): JSX.Element {
     setPage(currentPage - 1);
     setStartIdx(startIdx - SIMILARS_COUNT);
   };
-  
+
   return (
     <section className='product-similar'>
       <div className='container'>

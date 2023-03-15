@@ -19,7 +19,7 @@ function Banner(): JSX.Element {
           srcSet={`/${promo.previewImgWebp}, /${promo.previewImgWebp2x} 2x`}
         />
         <img
-          src={`/${promo.previewImg}`}
+          src={promo.previewImg}
           srcSet={`/${promo.previewImgWebp2x} 2x`}
           width='1280'
           height='280'

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { REVIEW_COUNT_PER_STEP } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { openReviewModal } from '../../store/modals/modals';
 import { Review } from '../../types/review';
 import { sortReviewsByDate } from '../../utils';
 import ReviewItem from '../review-item/review-item';
@@ -9,6 +11,7 @@ type ReviewBlockProps = {
 };
 
 function ReviewBlock({ reviews }: ReviewBlockProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const [showedReviews, setShowedReviews] = useState(REVIEW_COUNT_PER_STEP);
 
   const reviewsCount = reviews.length;
@@ -24,12 +27,16 @@ function ReviewBlock({ reviews }: ReviewBlockProps): JSX.Element {
     setShowedReviews(reviewsToShow);
   };
 
+  const handleAddReviewBtnClick = () => {
+    dispatch(openReviewModal());
+  };
+
   return (
     <section className='review-block'>
       <div className='container'>
         <div className='page-content__headed'>
           <h2 className='title title--h3'>Отзывы</h2>
-          <button className='btn' type='button'>
+          <button className='btn' type='button' onClick={handleAddReviewBtnClick}>
             Оставить свой отзыв
           </button>
         </div>

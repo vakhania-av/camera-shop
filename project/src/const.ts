@@ -1,4 +1,6 @@
 // constants
+export const MIN_RATING = 1;
+
 export const MAX_RATING = 5;
 
 export const START_PAGE = 1;
@@ -17,10 +19,11 @@ export const MODAL_OPEN_CLASS = 'scroll-lock';
 
 export enum AppRoute {
   Root = '/',
-  Product = ':id',
+  Product = 'cameras/:id',
   Basket = '/basket',
   Camera = 'cameras/',
-  Catalog = 'catalog/:page'
+  Catalog = 'catalog/:page',
+  NotFound = '*'
 }
 
 export enum APIRoute {
@@ -46,8 +49,8 @@ export enum Category {
 
 export enum CameraLevel {
   Zero = 'Нулевой',
-  Amateur = 'Любительский',
-  Pro = 'Профессиональный'
+  NonProfessional = 'Любительский',
+  Professional = 'Профессиональный'
 }
 
 export enum CameraType {
