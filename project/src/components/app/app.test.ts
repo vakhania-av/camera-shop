@@ -73,7 +73,7 @@ const fakeApp = (
 );
 
 describe('Application Routing:', () => {
-  it('should render basket when user navigate to '/basket'', () => {
+  it('should render basket when user navigate to /basket', () => {
     history.push(AppRoute.Basket);
 
     render(fakeApp);
@@ -86,7 +86,7 @@ describe('Application Routing:', () => {
     expect(screen.getByText(/Оформить заказ/i)).toBeInTheDocument();
   });
 
-  it('should render main screen when user navigate to '/'', () => {
+  it('should render main screen when user navigate to /', () => {
     history.push(AppRoute.Root);
 
     render(fakeApp);
