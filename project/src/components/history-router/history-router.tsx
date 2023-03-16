@@ -1,4 +1,4 @@
-import { BrowserHistory } from '@remix-run/router';
+import { BrowserHistory } from 'history';
 import { ReactNode, useLayoutEffect, useState } from 'react';
 import { Router } from 'react-router-dom';
 

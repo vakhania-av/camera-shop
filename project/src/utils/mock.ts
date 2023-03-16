@@ -3,7 +3,7 @@ import { MAX_RATING, MIN_RATING } from '../const';
 import { Camera, Promo } from '../types/camera';
 import { Review, ReviewPost } from '../types/review';
 
-const getRandomInteger = (min: number, max: number): number => {
+export const getRandomInteger = (min: number, max: number): number => {
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 };

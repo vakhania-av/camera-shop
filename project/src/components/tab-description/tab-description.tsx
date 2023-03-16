@@ -10,7 +10,7 @@ function TabDescription({ description, tabType }: TypeDescriptionProps): JSX.Ele
   const className = classnames('tabs__element', { 'is-active': tabType === TabType.Description });
 
   return (
-    <div className={className}>
+    <div className={className} data-testid='tab-description'>
       <div className='product__tabs-text'>
         <p>{description}</p>
       </div>

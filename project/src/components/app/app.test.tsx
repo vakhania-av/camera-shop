@@ -1,30 +1,26 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
-import {
-  AppRoute,
-  CAMERAS_PER_PAGE,
-  FetchStatus,
-  NameSpace,
-  START_PAGE,
-} from '../../const';
-import {
-  makeFakeCamera,
-  makeFakePastReview,
-  makeFakePromo,
-} from '../../utils/mock';
+import { AppRoute, CAMERAS_PER_PAGE, FetchStatus, NameSpace, START_PAGE } from '../../const';
+import { makeFakeCamera, makeFakePastReview, makeFakePromo } from '../../utils/mock';
 import { Provider } from 'react-redux';
+import HistoryRouter from '../history-router/history-router';
+import App from './app';
+import { createAPI } from '../../services/api';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { State } from '../../types/state';
+import { Action } from 'redux';
 
-const mockStore = configureMockStore();
 const fakeCameras = [makeFakeCamera(), makeFakeCamera(), makeFakeCamera()];
 const fakePromo = makeFakePromo();
 const fakeCurrentCamera = makeFakeCamera();
-const fakeSimilarCameras = [
-  makeFakeCamera(),
-  makeFakeCamera(),
-  makeFakeCamera(),
-];
-const fakeReviews = [makeFakePastReview(), makeFakePastReview()];
+const fakeSimilarCameras = [ makeFakeCamera(), makeFakeCamera(), makeFakeCamera() ];
+const fakeReviews = [ makeFakePastReview(), makeFakePastReview() ];
+
+const api = createAPI();
+const middlewares = [thunk.withExtraArgument(api)];
+
+const mockStore = configureMockStore<State, Action<string>, ThunkDispatch<State, typeof api, Action>>(middlewares);
 
 const store = mockStore({
   [NameSpace.Camera]: {
@@ -61,6 +57,9 @@ jest.mock(
   () => () => 'Product Card'
 );
 jest.mock('../../components/icon-star/icon-star', () => () => 'Star');
+jest.mock('nanoid', () => ({
+  nanoid: jest.fn().mockImplementation(() => 'some-id'),
+}));
 
 const history = createMemoryHistory();
 
@@ -73,6 +72,9 @@ const fakeApp = (
 );
 
 describe('Application Routing:', () => {
+  beforeEach(window.HTMLHtmlElement.prototype.scrollTo = jest.fn());
+  beforeEach(window.Window.prototype.scrollTo = jest.fn());
+  
   it('should render basket when user navigate to /basket', () => {
     history.push(AppRoute.Basket);
 

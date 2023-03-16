@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { makeFakeCamera, makeFakeNewReview, makeFakePastReview, makeFakePromo, makeFutureReview } from '../utils/mock';
 import { APIRoute } from '../const';
+import { setPagesCount } from './ui/ui';
 
 describe('Async actions:', () => {
     const api = createAPI();
@@ -106,7 +107,7 @@ describe('Async actions:', () => {
   
         mockApi
           .onGet(`${APIRoute.Cameras}?_start=${mockStart}&_limit=${mockLimit}`)
-          .reply(200, mockCameras);
+          .reply(200, mockCameras, { 'x-total-count': 40 });
   
         const store = mockStore();
   
@@ -116,6 +117,7 @@ describe('Async actions:', () => {
   
         expect(actions).toEqual([
           fetchCamerasPerPageAction.pending.type,
+          setPagesCount.type,
           fetchCamerasPerPageAction.fulfilled.type
         ]);
       });
