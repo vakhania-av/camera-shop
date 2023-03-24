@@ -79,7 +79,7 @@ describe('Main page:', () => {
     ).toBeInTheDocument();
     expect(
       screen.queryByText(
-        'Сервер недоступен. Перезагрузите, пожалуйста, страницу'
+        'Server unavailable. Try reload page!'
       )
     ).not.toBeInTheDocument();
     expect(screen.getByText(fakeCameras[0].name)).toBeInTheDocument();

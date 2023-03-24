@@ -19,7 +19,7 @@ function Pagination(): JSX.Element {
     pages.push(i);
   }
 
-  const handlePageClick = (page: number) => {
+  const handlePageClick = (page: number) => () => {
     dispatch(changePage({ page }));
   };
 
@@ -33,7 +33,7 @@ function Pagination(): JSX.Element {
                 page: String(previousPage),
               })}`}
               className='pagination__link pagination__link--text'
-              onClick={() => handlePageClick(previousPage)}
+              onClick={handlePageClick(previousPage)}
             >
               Назад
             </Link>
@@ -52,7 +52,7 @@ function Pagination(): JSX.Element {
                   page: String(page),
                 })}`}
                 className={className}
-                onClick={() => handlePageClick(page)}
+                onClick={handlePageClick(page)}
               >
                 {page}
               </Link>
@@ -67,7 +67,7 @@ function Pagination(): JSX.Element {
                 page: String(nextPage),
               })}`}
               className='pagination__link pagination__link--text'
-              onClick={() => handlePageClick(nextPage)}
+              onClick={handlePageClick(nextPage)}
             >
               Далее
             </Link>

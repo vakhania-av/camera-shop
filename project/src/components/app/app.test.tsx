@@ -74,7 +74,7 @@ const fakeApp = (
 describe('Application Routing:', () => {
   beforeEach(window.HTMLHtmlElement.prototype.scrollTo = jest.fn());
   beforeEach(window.Window.prototype.scrollTo = jest.fn());
-  
+
   it('should render basket when user navigate to /basket', () => {
     history.push(AppRoute.Basket);
 

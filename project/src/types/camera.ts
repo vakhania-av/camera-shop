@@ -7,13 +7,13 @@ export type Camera = {
   description: string;
   level: 'Нулевой' | 'Любительский' | 'Профессиональный';
   rating: number;
-  price: number,
+  price: number;
   previewImg: string;
   previewImg2x: string;
   previewImgWebp: string;
   previewImgWebp2x: string;
-  reviewCount: number
-}
+  reviewCount: number;
+};
 
 export type Promo = {
   id: number;
@@ -22,4 +22,4 @@ export type Promo = {
   previewImg2x: string;
   previewImgWebp: string;
   previewImgWebp2x: string;
-}
+};
