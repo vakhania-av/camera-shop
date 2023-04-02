@@ -8,16 +8,12 @@ import classnames from 'classnames';
 function Pagination(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const pages = [];
-
   const pagesCount = useAppSelector(getPagesCount);
   const currentPage = useAppSelector(getCurrentPage);
   const previousPage = currentPage - 1;
   const nextPage = currentPage + 1;
 
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
+  const pages = [...Array(pagesCount).keys()].map((page) => page + 1);
 
   const handlePageClick = (page: number) => () => {
     dispatch(changePage({ page }));

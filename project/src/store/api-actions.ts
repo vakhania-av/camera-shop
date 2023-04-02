@@ -111,3 +111,24 @@ export const postReviewAction = createAsyncThunk<Review | undefined, ReviewPost,
     return rejectWithValue(err);
   }
 });
+
+export const fetchSearchCamerasAction = createAsyncThunk<
+  Camera[] | undefined,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'cameras/searchCameras',
+  async (searchPhrase, { extra: api, rejectWithValue }) => {
+    try {
+      const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}?name_like=${searchPhrase}`);
+
+      return data;
+    } catch (err) {
+      rejectWithValue(err);
+    }
+  }
+);

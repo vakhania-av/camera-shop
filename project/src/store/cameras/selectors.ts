@@ -6,6 +6,8 @@ import { State } from '../../types/state';
 // Cameras
 export const getCamerasFetchStatus = (state: State): FetchStatus => state[NameSpace.Camera].fetchCamerasStatus;
 export const getCamerasOnPage = (state: State): Camera[] => state[NameSpace.Camera].camerasOnPage;
+export const getSearchCameras = (state: State): Camera[] | undefined => state[NameSpace.Camera].searchCameras;
+export const getSearchCamerasFetchStatus = (state: State): FetchStatus => state[NameSpace.Camera].fetchSearchCamerasStatus;
 
 // Promo
 export const getPromo = (state:State): Promo | null => state[NameSpace.Camera].promo;
@@ -51,6 +53,16 @@ export const selectSimilarCamerasStatus = createSelector(
   [getSimilarCamerasFetchStatus],
   (status) => ({
     isLoading: [FetchStatus.Idle, FetchStatus.Pending].includes(status),
+    isSuccess: status === FetchStatus.Success,
+    isError: status === FetchStatus.Error,
+  })
+);
+
+export const selectSearchCamerasStatus = createSelector(
+  [getSearchCamerasFetchStatus],
+  (status) => ({
+    isEmpty: status === FetchStatus.Idle,
+    isLoading: status === FetchStatus.Pending,
     isSuccess: status === FetchStatus.Success,
     isError: status === FetchStatus.Error,
   })
