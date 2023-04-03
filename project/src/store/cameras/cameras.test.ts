@@ -30,10 +30,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchCamerasPerPageAction.fulfilled.type, payload: fakeCameras}))
         .toEqual({
@@ -54,10 +56,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchCamerasPerPageAction.rejected.type}))
         .toEqual({
@@ -78,10 +82,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchCamerasPerPageAction.pending.type}))
         .toEqual({
@@ -104,10 +110,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchPromoAction.rejected.type}))
         .toEqual({
@@ -128,10 +136,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchPromoAction.fulfilled.type, payload: fakePromo}))
         .toEqual({
@@ -152,10 +162,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchPromoAction.pending.type}))
         .toEqual({
@@ -179,10 +191,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchCurrentCameraAction.rejected.type}))
         .toEqual({
@@ -203,10 +217,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchCurrentCameraAction.pending.type}))
         .toEqual({
@@ -227,10 +243,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchCurrentCameraAction.fulfilled.type, payload: fakeCurrentCamera}))
         .toEqual({
@@ -254,10 +272,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchSimilarCamerasAction.rejected.type}))
         .toEqual({
@@ -278,10 +298,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchSimilarCamerasAction.pending.type}))
         .toEqual({
@@ -302,10 +324,12 @@ describe('Reducer: cameras', () => {
         promo: null,
         currentCamera: null,
         similarCameras: [],
+        searchCameras: [],
         fetchCamerasStatus: FetchStatus.Idle,
         fetchPromoStatus: FetchStatus.Idle,
         fetchCurrentCameraStatus: FetchStatus.Idle,
-        fetchSimilarCamerasStatus: FetchStatus.Idle
+        fetchSimilarCamerasStatus: FetchStatus.Idle,
+        fetchSearchCamerasStatus: FetchStatus.Idle
       };
       expect(cameras.reducer(state, {type: fetchSimilarCamerasAction.fulfilled.type, payload: fakeCameras}))
         .toEqual({

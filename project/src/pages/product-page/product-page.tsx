@@ -20,6 +20,8 @@ import TabDescription from '../../components/tab-description/tab-description';
 import { getReviews } from '../../store/reviews/selectors';
 import ModalReviewSuccess from '../../components/modal-review-success/modal-review-success';
 import ModalReview from '../../components/modal-review/modal-review';
+import FullpageSpinner from '../../components/fullpage-spinner/fullpage-spinner';
+import ErrorScreen from '../error-screen/error-screen';
 
 function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -47,11 +49,11 @@ function ProductPage(): JSX.Element {
   }, [id, dispatch]);
 
   if (isLoading) {
-    return <p>Please, wait a bit...</p>;
+    return <FullpageSpinner size='big' />;
   }
 
   if (isError || !camera) {
-    return <p>Something went wrong! Try again</p>;
+    return <ErrorScreen />;
   }
 
   const {

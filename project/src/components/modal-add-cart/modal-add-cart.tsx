@@ -60,7 +60,7 @@ function ModalAddCart(): JSX.Element {
   } = camera;
 
   return (
-    <FocusTrap>
+    <FocusTrap active={isActive} focusTrapOptions={{tabbableOptions: {displayCheck: 'none'}}}>
       <div
         className={modalclassName}
         onClick={handleCloseBtnClick}

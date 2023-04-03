@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import FilterForm from '../../components/filter-form/filter-form';
+import FullpageSpinner from '../../components/fullpage-spinner/fullpage-spinner';
 import Layout from '../../components/layout/layout';
 import ModalAddCart from '../../components/modal-add-cart/modal-add-cart';
 import Pagination from '../../components/pagination/pagination';
@@ -13,6 +14,7 @@ import { fetchCamerasPerPageAction } from '../../store/api-actions';
 import { getCamerasOnPage, selectCamerasStatus } from '../../store/cameras/selectors';
 import { getAddToCartModalStatus } from '../../store/modals/selectors';
 import { getCurrentPage } from '../../store/ui/selectors';
+import ErrorScreen from '../error-screen/error-screen';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,7 +23,7 @@ function MainPage(): JSX.Element {
   const currentPage = useAppSelector(getCurrentPage);
   const isModalActive = useAppSelector(getAddToCartModalStatus);
 
-  const { isError } = useAppSelector(selectCamerasStatus);
+  const { isError, isLoading } = useAppSelector(selectCamerasStatus);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -29,8 +31,12 @@ function MainPage(): JSX.Element {
     dispatch(fetchCamerasPerPageAction([startIndex, CAMERAS_PER_PAGE]));
   }, [currentPage, dispatch]);
 
+  if (isLoading) {
+    return <FullpageSpinner size='big' />;
+  }
+
   if (isError) {
-    return <p>Server unavailable. Try reload page!</p>;
+    return <ErrorScreen />;
   }
 
   return (

@@ -79,7 +79,7 @@ describe('Main page:', () => {
     ).toBeInTheDocument();
     expect(
       screen.queryByText(
-        'Server unavailable. Try reload page!'
+        'Что-то пошло не так:( Попробуйте обновить страницу'
       )
     ).not.toBeInTheDocument();
     expect(screen.getByText(fakeCameras[0].name)).toBeInTheDocument();
@@ -124,7 +124,7 @@ describe('Main page:', () => {
     );
 
     expect(
-      screen.getByText('Server unavailable. Try reload page!')
+      screen.getByText('Что-то пошло не так:( Попробуйте обновить страницу')
     ).toBeInTheDocument();
     expect(
       screen.queryByText('Каталог фото- и видеотехники')

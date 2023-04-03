@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { MODAL_OPEN_CLASS } from '../../const';
 import { postReviewAction } from '../../store/api-actions';
 import FocusTrap from 'focus-trap-react';
+import Spinner from '../spinner/spinner';
 
 const RateFormData = {
   Great: { id: 'star-5', title: 'Отлично', value: 5 },
@@ -100,7 +101,7 @@ function ModalReview(): JSX.Element {
   };
 
   return (
-    <FocusTrap>
+    <FocusTrap active={isActive} focusTrapOptions={{tabbableOptions: {displayCheck: 'none'}}}>
       <div
         className={modalClass}
         onClick={handleCloseBtnClick}
@@ -213,7 +214,7 @@ function ModalReview(): JSX.Element {
                   className="btn btn--purple form-review__btn"
                   type="submit"
                 >
-                  Отправить отзыв
+                  { isLoading ? <Spinner size='small' /> : 'Отправить отзыв' }
                 </button>
               </form>
             </div>
