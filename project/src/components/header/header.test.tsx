@@ -2,18 +2,50 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, FetchStatus, NameSpace } from '../../const';
 import HistoryRouter from '../history-router/history-router';
 import Header from './header';
+import { makeFakeCamera } from '../../utils/mock';
+import { createAPI } from '../../services/api';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import thunk, { ThunkDispatch } from 'redux-thunk';
+import { State } from '../../types/state';
+import { Action } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+
+const fakeCameras = [
+  makeFakeCamera(),
+  makeFakeCamera(),
+  makeFakeCamera(),
+  makeFakeCamera(),
+];
+
+const api = createAPI();
+const middlewares = [thunk.withExtraArgument(api)];
+
+const mockStore = configureMockStore<
+  State,
+  Action<string>,
+  ThunkDispatch<State, typeof api, Action>
+>(middlewares);
+
+const store = mockStore({
+  [NameSpace.Camera]: {
+    searchCameras: fakeCameras,
+    fetchSearchCamerasStatus: FetchStatus.Success,
+  },
+});
 
 const history = createMemoryHistory();
 
 describe('Header component', () => {
   it('should render correctly', () => {
     render(
-      <HistoryRouter history={history}>
-        <Header />
-      </HistoryRouter>
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Header />
+        </HistoryRouter>
+      </Provider>
     );
 
     expect(screen.getByRole('banner')).toBeInTheDocument();
@@ -24,15 +56,17 @@ describe('Header component', () => {
     history.push('/fake');
 
     render(
-      <HistoryRouter history={history}>
-        <Routes>
-          <Route
-            path={AppRoute.Basket}
-            element={<h1>This is basket page</h1>}
-          />
-          <Route path='*' element={<Header />} />
-        </Routes>
-      </HistoryRouter>
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Routes>
+            <Route
+              path={AppRoute.Basket}
+              element={<h1>This is basket page</h1>}
+            />
+            <Route path='*' element={<Header />} />
+          </Routes>
+        </HistoryRouter>
+      </Provider>
     );
 
     expect(screen.queryByText(/This is basket page/i)).not.toBeInTheDocument();

@@ -5,7 +5,7 @@ import ProductCard from '../product-card/product-card';
 
 type SimilarProductsProps = {
   cameras: Camera[];
-}
+};
 
 function SimilarProducts({ cameras }: SimilarProductsProps): JSX.Element {
   const [startIdx, setStartIdx] = useState(0);
@@ -14,6 +14,7 @@ function SimilarProducts({ cameras }: SimilarProductsProps): JSX.Element {
   const pagesCount = Math.ceil(cameras.length / 3);
 
   const handleNextBtnClick = () => {
+    debugger
     setPage(currentPage + 1);
     setStartIdx(startIdx + SIMILARS_COUNT);
   };
@@ -29,9 +30,11 @@ function SimilarProducts({ cameras }: SimilarProductsProps): JSX.Element {
         <h2 className='title title--h3'>Похожие товары</h2>
         <div className='product-similar__slider'>
           <div className='product-similar__slider-list'>
-            { cameras.slice(startIdx, SIMILARS_COUNT + startIdx).map((camera) => (
-              <ProductCard key={camera.id} camera={camera} isActive />
-            )) }
+            {cameras
+              .slice(startIdx, SIMILARS_COUNT + startIdx)
+              .map((camera) => (
+                <ProductCard camera={camera} key={camera.id} isActive />
+              ))}
           </div>
           <button
             className='slider-controls slider-controls--prev'

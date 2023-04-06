@@ -214,7 +214,7 @@ function ModalReview(): JSX.Element {
                   className="btn btn--purple form-review__btn"
                   type="submit"
                 >
-                  { isLoading ? <Spinner size='small' /> : 'Отправить отзыв' }
+                  { isLoading ? <Spinner size='small' color='white' /> : 'Отправить отзыв' }
                 </button>
               </form>
             </div>
