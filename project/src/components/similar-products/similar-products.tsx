@@ -14,7 +14,6 @@ function SimilarProducts({ cameras }: SimilarProductsProps): JSX.Element {
   const pagesCount = Math.ceil(cameras.length / 3);
 
   const handleNextBtnClick = () => {
-    debugger
     setPage(currentPage + 1);
     setStartIdx(startIdx + SIMILARS_COUNT);
   };

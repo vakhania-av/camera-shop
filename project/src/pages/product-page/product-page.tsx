@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import IconStar from '../../components/icon-star/icon-star';
@@ -23,10 +23,13 @@ import ModalReview from '../../components/modal-review/modal-review';
 import FullpageSpinner from '../../components/fullpage-spinner/fullpage-spinner';
 import ErrorScreen from '../error-screen/error-screen';
 
+
 function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const [tabType, setTabType] = useState<TabType>(TabType.Characteristic);
   const { id } = useParams();
+
+  const ref = createRef<HTMLAnchorElement>();
 
   const camera = useAppSelector(getCurrentProduct);
   const similarCameras = useAppSelector(getSimilarCameras);
@@ -87,9 +90,13 @@ function ProductPage(): JSX.Element {
     setTabType(TabType.Description);
   };
 
+  const scrollToTopClick = () => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <div className='wrapper'>
-      <Layout>
+      <Layout ref={ref}>
         <main>
           <div className='page-content'>
             <Breadcrumbs productName={name} />
@@ -173,7 +180,7 @@ function ProductPage(): JSX.Element {
           { isReviewModalActive && <ModalReview /> }
           { isReviewSuccessActive && <ModalReviewSuccess />}
         </main>
-        <a className='up-btn' href='#header'>
+        <a className='up-btn' onClick={scrollToTopClick}>
           <svg width='12' height='18' aria-hidden='true'>
             <use xlinkHref='#icon-arrow2' />
           </svg>

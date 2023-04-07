@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../logo/logo';
 import SearchForm from '../search-form/search-form';
+import { forwardRef } from 'react';
 
-function Header(): JSX.Element {
-  return (
-    <header className='header' id='header'>
+export type Ref = HTMLAnchorElement;
+
+const Header = forwardRef<HTMLHeadElement>(
+  (props, ref): JSX.Element => (
+    <header ref={ref} className='header' id='header'>
       <div className='container'>
         <Logo type='header' />
 
@@ -48,7 +51,9 @@ function Header(): JSX.Element {
         </Link>
       </div>
     </header>
-  );
-}
+  )
+);
+
+Header.displayName = 'Header';
 
 export default Header;
