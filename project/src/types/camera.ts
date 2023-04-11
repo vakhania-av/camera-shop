@@ -1,3 +1,5 @@
+import { CameraLevel, CameraType, Category, OrderData, SortData } from '../const';
+
 export type Camera = {
   id: number;
   name: string;
@@ -22,4 +24,16 @@ export type Promo = {
   previewImg2x: string;
   previewImgWebp: string;
   previewImgWebp2x: string;
+};
+
+export type CamerasParams = {
+  start: number;
+  limit: number;
+  sort?: SortData;
+  order?: OrderData;
+  categories?: Category[];
+  types?: CameraType[];
+  levels?: CameraLevel[];
+  priceFrom?: number;
+  PriceTo: number;
 };

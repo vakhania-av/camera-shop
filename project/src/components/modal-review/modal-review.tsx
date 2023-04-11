@@ -11,6 +11,7 @@ import { MODAL_OPEN_CLASS } from '../../const';
 import { postReviewAction } from '../../store/api-actions';
 import FocusTrap from 'focus-trap-react';
 import Spinner from '../spinner/spinner';
+import { clearPostReviewStatus } from '../../store/reviews/reviews';
 
 const RateFormData = {
   Great: { id: 'star-5', title: 'Отлично', value: 5 },
@@ -45,11 +46,7 @@ function ModalReview(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<ReviewPost>();
+  const { register, formState: { errors }, handleSubmit } = useForm<ReviewPost>();
 
   const isActive = useAppSelector(getReviewModalStatus);
   const { isSuccess, isLoading } = useAppSelector(selectPostReviewStatus);
@@ -59,6 +56,10 @@ function ModalReview(): JSX.Element {
       dispatch(closeReviewModal());
       dispatch(openReviewSuccessModal());
     }
+
+    return () => {
+      dispatch(clearPostReviewStatus());
+    };
   }, [isSuccess, dispatch]);
 
   const textareaClassName = classNames('custom-textarea form-review__item', {
@@ -91,11 +92,7 @@ function ModalReview(): JSX.Element {
 
   const onSubmit: SubmitHandler<ReviewPost> = (review) => {
     if (id) {
-      const payload = {
-        ...review,
-        cameraId: Number(id),
-        rating: Number(review.rating),
-      };
+      const payload = { ...review, cameraId: Number(id), rating: Number(review.rating) };
       dispatch(postReviewAction({ ...payload }));
     }
   };
@@ -109,7 +106,7 @@ function ModalReview(): JSX.Element {
       >
         <div className="modal__wrapper">
           <div className="modal__overlay"></div>
-          <div className="modal__content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal__content" onClick={(evt) => evt.stopPropagation()}>
             <p className="title title--h4">Оставить отзыв</p>
             <div className="form-review">
               <form

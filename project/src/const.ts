@@ -15,6 +15,8 @@ export const TOTAL_COUNT_HEADER = 'x-total-count';
 
 export const MODAL_OPEN_CLASS = 'scroll-lock';
 
+export const DEBOUNCE_DELAY = 1000;
+
 // API + Backend
 
 export enum AppRoute {
@@ -43,7 +45,7 @@ export enum FetchStatus {
 // Products + Sorting
 
 export enum Category {
-  Photocamera = 'Фотокамера',
+  Photocamera = 'Фотоаппарат',
   Videocamera = 'Видеокамера'
 }
 
@@ -65,11 +67,6 @@ export const SortOrder = {
   Desc: { name: 'down', value: 'По убыванию' }
 } as const;
 
-export enum SortType {
-  SortPrice = 'по цене',
-  SortPopular = 'по популярности'
-}
-
 export enum NameSpace {
   Camera = 'CAMERA',
   Ui = 'UI',
@@ -80,4 +77,16 @@ export enum NameSpace {
 export enum TabType {
   Characteristic = 'characteristic',
   Description = 'description'
+}
+
+export enum SortData {
+  Idle = '',
+  Price = 'price',
+  Rating = 'rating'
+}
+
+export enum OrderData {
+  Idle = '',
+  Ascending = 'asc',
+  Descending = 'desc'
 }

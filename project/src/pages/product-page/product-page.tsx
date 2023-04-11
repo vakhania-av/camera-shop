@@ -26,6 +26,7 @@ import ErrorScreen from '../error-screen/error-screen';
 
 function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
+
   const [tabType, setTabType] = useState<TabType>(TabType.Characteristic);
   const { id } = useParams();
 
@@ -67,9 +68,10 @@ function ProductPage(): JSX.Element {
     previewImgWebp2x,
     rating,
     price,
-    reviewCount,
     description,
   } = camera;
+
+  const reviewCount = reviews.length;
 
   const fullStars = Array(rating).fill(<IconStar full />);
   const emptyStars = Array(MAX_RATING - rating).fill(<IconStar />);
