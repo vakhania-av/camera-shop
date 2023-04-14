@@ -35,5 +35,5 @@ export type CamerasParams = {
   types?: CameraType[];
   levels?: CameraLevel[];
   priceFrom?: number;
-  PriceTo: number;
+  priceTo?: number;
 };

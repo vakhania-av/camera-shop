@@ -1,14 +1,65 @@
-import { SortOrder, SortType } from '../../const';
+import { OrderData, START_PAGE, SortData, SortOrder} from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getOrderType, getSortType } from '../../store/ui/selectors';
+import { changePage, setOrderType, setSortType } from '../../store/ui/ui';
+
+type SortingType = {
+  [key: string]: SortData;
+};
+
+type SortingOrder = {
+  [key: string]: OrderData;
+};
+
+const sortingType: SortingType = {
+  'по цене': SortData.Price,
+  'по популярности': SortData.Rating
+};
+
+const sortingOrder: SortingOrder = {
+  'up': OrderData.Ascending,
+  'down': OrderData.Descending
+};
 
 function SortingForm(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const sortType = useAppSelector(getSortType);
+  const orderType = useAppSelector(getOrderType);
+
+  const handleSortInputCheck = (sortBy: SortData) => () => {
+    if (sortType === SortData.Idle) {
+      dispatch(setSortType({ sortType: SortData.Price }));
+    }
+
+    dispatch(changePage({ page: START_PAGE }));
+    dispatch(setSortType({ sortType: sortBy }));
+  };
+
+  const handleOrderInputCheck = (order: OrderData) => () => {
+    if (sortType === SortData.Idle) {
+      dispatch(changePage({ page: START_PAGE }));
+    }
+
+    dispatch(changePage({ page: START_PAGE }));
+    dispatch(setOrderType({ orderType: order }));
+  };
+
   return (
     <form action='#'>
       <div className='catalog-sort__inner'>
         <p className='title title--h5'>Сортировать:</p>
         <div className='catalog-sort__type'>
-          {Object.entries(SortType).map(([name, value]) => (
+          {Object.entries(sortingType).map(([name, value]) => (
             <div key={name} className='catalog-sort__btn-text'>
-              <input type='radio' id={name} name='sort' />
+              <input
+                type='radio'
+                id={name}
+                name='sort'
+                onChange={handleSortInputCheck(value)}
+                checked={value === sortType}
+                data-testid={value}
+              />
               <label htmlFor={name}>{value}</label>
             </div>
           ))}
@@ -25,6 +76,8 @@ function SortingForm(): JSX.Element {
                 id={name}
                 name='sort-icon'
                 aria-label={value}
+                onChange={handleOrderInputCheck(sortingOrder[name])}
+                checked={sortingOrder[name] === orderType}
               />
               <label htmlFor={name}>
                 <svg width='16' height='14' aria-hidden='true'>

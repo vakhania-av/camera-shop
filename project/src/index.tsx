@@ -6,9 +6,16 @@ import App from './components/app/app';
 import HistoryRouter from './components/history-router/history-router';
 import { CAMERAS_PER_PAGE } from './const';
 import { store } from './store';
-import { fetchPromoAction, fetchCamerasPerPageAction } from './store/api-actions';
+import { fetchPromoAction, fetchCamerasPerPageAction, fetchCameras } from './store/api-actions';
+import { CamerasParams } from './types/camera';
 
-store.dispatch(fetchCamerasPerPageAction([0, CAMERAS_PER_PAGE]));
+const camerasParams: CamerasParams = {
+  start: 0,
+  limit: CAMERAS_PER_PAGE
+};
+
+store.dispatch(fetchCamerasPerPageAction(camerasParams));
+store.dispatch(fetchCameras());
 store.dispatch(fetchPromoAction());
 
 const root = ReactDOM.createRoot(

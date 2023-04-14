@@ -80,7 +80,7 @@ export const ui = createSlice({
     setMinAndMaxPrice: (state, action: PayloadAction<{ cameras: Camera[] }>) => {
       const { cameras } = action.payload;
       const prices = cameras.reduce((acc: number[], camera) => [...acc, camera.price], []);
-      const  minimalPrice = Math.min(...prices);
+      const minimalPrice = Math.min(...prices);
       const maximumPrice = Math.max(...prices);
 
       state.minimalPrice = minimalPrice;
@@ -99,12 +99,13 @@ export const ui = createSlice({
   }
 });
 
-export const { 
+export const {
   changePage,
   setPagesCount,
   setSortType,
   setOrderType,
   setCameraLevel,
+  setCategory,
   setCameraType,
   clearFilters,
   setMinAndMaxPrice,

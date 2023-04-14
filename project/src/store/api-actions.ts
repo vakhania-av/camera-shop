@@ -26,7 +26,7 @@ export const fetchCamerasPerPageAction = createAsyncThunk<
       types,
       levels,
       priceFrom,
-      PriceTo,
+      priceTo,
     },
     { dispatch, extra: api, rejectWithValue }
   ) => {
@@ -42,7 +42,7 @@ export const fetchCamerasPerPageAction = createAsyncThunk<
           ? levels.map((level) => `&level=${level}`).join('')
           : '',
         priceFromOptions: priceFrom ? `&price_gte=${priceFrom}` : '',
-        priceToOptions: PriceTo ? `price_lte=${PriceTo}` : '',
+        priceToOptions: priceTo ? `price_lte=${priceTo}` : '',
       };
 
       const {

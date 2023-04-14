@@ -1,7 +1,7 @@
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
-import { AppRoute, CAMERAS_PER_PAGE, FetchStatus, NameSpace, START_PAGE } from '../../const';
+import { AppRoute, CAMERAS_PER_PAGE, CameraLevel, CameraType, Category, FetchStatus, NameSpace, START_PAGE } from '../../const';
 import { makeFakeCamera, makeFakePastReview, makeFakePromo } from '../../utils/mock';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
@@ -37,6 +37,9 @@ const store = mockStore({
     currentPage: START_PAGE,
     camerasPerPage: CAMERAS_PER_PAGE,
     pages: 1,
+    cameraLevels: [CameraLevel.Professional],
+    cameraTypes: [CameraType.Digital],
+    categories: [Category.Photocamera]
   },
   [NameSpace.Modals]: {
     activeCamera: fakeCurrentCamera,

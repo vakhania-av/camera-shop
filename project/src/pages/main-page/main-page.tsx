@@ -6,15 +6,17 @@ import FullpageSpinner from '../../components/fullpage-spinner/fullpage-spinner'
 import Layout from '../../components/layout/layout';
 import ModalAddCart from '../../components/modal-add-cart/modal-add-cart';
 import Pagination from '../../components/pagination/pagination';
-import ProductCard from '../../components/product-card/product-card';
 import SortingForm from '../../components/sorting-form/sorting-form';
 import { CAMERAS_PER_PAGE } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCamerasPerPageAction } from '../../store/api-actions';
 import { getCamerasOnPage, selectCamerasStatus } from '../../store/cameras/selectors';
 import { getAddToCartModalStatus } from '../../store/modals/selectors';
-import { getCurrentPage } from '../../store/ui/selectors';
+import { getCameraLevels, getCameraTypes, getCategories, getCurrentPage, getFromPrice, getOrderType, getSortType, getToPrice } from '../../store/ui/selectors';
 import ErrorScreen from '../error-screen/error-screen';
+import { CamerasParams } from '../../types/camera';
+import CardsList from '../../components/cards-list/cards-list';
+import { useSearchParams } from 'react-router-dom';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,13 +25,63 @@ function MainPage(): JSX.Element {
   const currentPage = useAppSelector(getCurrentPage);
   const isModalActive = useAppSelector(getAddToCartModalStatus);
 
+  const sortType = useAppSelector(getSortType);
+  const orderType = useAppSelector(getOrderType);
+  const categoryFilters = useAppSelector(getCategories);
+  const levelFilters = useAppSelector(getCameraLevels);
+  const typeFilters = useAppSelector(getCameraTypes);
+  const priceFrom = useAppSelector(getFromPrice);
+  const priceTo = useAppSelector(getToPrice);
+
   const { isError, isLoading } = useAppSelector(selectCamerasStatus);
+
+  const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const startIndex = (currentPage - 1) * CAMERAS_PER_PAGE;
-    dispatch(fetchCamerasPerPageAction([startIndex, CAMERAS_PER_PAGE]));
-  }, [currentPage, dispatch]);
+
+    let params: CamerasParams = {
+      start: startIndex,
+      limit: CAMERAS_PER_PAGE
+    };
+
+    let searchParams: {[key: string]: string} = {};
+
+    if (sortType || orderType) {
+      params = { ...params, sort: sortType, order: orderType };
+      searchParams = { ...searchParams, sort: sortType, order: orderType };
+    }
+
+    if (categoryFilters.length) {
+      params = { ...params, categories: categoryFilters };
+      searchParams = { ...searchParams, categories: categoryFilters.join(',') };
+    }
+
+    if (levelFilters.length) {
+      params = { ...params, levels: levelFilters };
+      searchParams = { ...searchParams, levels: levelFilters.join(',') };
+    }
+
+    if (typeFilters.length) {
+      params = { ...params, types: typeFilters };
+      searchParams = { ...searchParams, types: typeFilters.join(',') };
+    }
+
+    if (priceFrom) {
+      params = { ...params, priceFrom };
+      searchParams = { ...searchParams, 'price_gte': String(priceFrom) };
+    }
+
+    if (priceTo) {
+      params = { ...params, priceTo };
+      searchParams = { ...searchParams, 'price_lte': String(priceTo) };
+    }
+
+    setSearchParams(searchParams);
+    dispatch(fetchCamerasPerPageAction(params));
+
+  }, [currentPage, sortType, orderType, categoryFilters, levelFilters, typeFilters, priceFrom, priceTo, dispatch, setSearchParams]);
 
   if (isLoading) {
     return <FullpageSpinner size='big' />;
@@ -61,11 +113,7 @@ function MainPage(): JSX.Element {
                     <div className="catalog-sort">
                       <SortingForm />
                     </div>
-                    <div className="cards catalog__cards">
-                      {camerasOnPage.map((camera) => (
-                        <ProductCard key={camera.id} camera={camera} />
-                      ))}
-                    </div>
+                    <CardsList cameras={camerasOnPage} />
                     <Pagination />
                   </div>
                 </div>
