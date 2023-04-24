@@ -1,21 +1,23 @@
 import { ChangeEvent } from 'react';
-import { CameraLevel, CameraType, Category, DEBOUNCE_DELAY, START_PAGE } from '../../const';
+import { CATEGORY, CameraLevel, CameraType, Category, DEBOUNCE_DELAY, LEVEL, PRICE_FROM, PRICE_TO, START_PAGE, TYPE } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCameraLevels, getCameraTypes, getCategories, getCurrentPage, getFromPrice, getMaximumPrice, getMinimalPrice, getToPrice } from '../../store/ui/selectors';
+import { getCurrentPage, getFromPrice, getMaximumPrice, getMinimalPrice } from '../../store/ui/selectors';
 import { changePage, clearFilters, setCameraLevel, setCameraType, setCategory, setPriceFrom, setPriceTo } from '../../store/ui/ui';
 import { debounce } from 'ts-debounce';
+import { useSearchParams } from 'react-router-dom';
 
 function FilterForm(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const dispatch = useAppDispatch();
 
-  const levels = useAppSelector(getCameraLevels);
-  const types = useAppSelector(getCameraTypes);
-  const categories = useAppSelector(getCategories);
   const currentPage = useAppSelector(getCurrentPage);
   const minimalPrice = useAppSelector(getMinimalPrice);
   const maximumPrice = useAppSelector(getMaximumPrice);
   const priceFrom = useAppSelector(getFromPrice);
-  const priceTo = useAppSelector(getToPrice);
+
+  const priceGte = searchParams.get(PRICE_FROM);
+  const priceLte = searchParams.get(PRICE_TO);
 
   const goOnStartPage = () => {
     if (currentPage !== START_PAGE) {
@@ -23,19 +25,46 @@ function FilterForm(): JSX.Element {
     }
   };
 
-  const handleLevelInputChange = (levelData: CameraLevel) => () => {
+  const handleLevelInputChange = (levelData: CameraLevel) => (evt: ChangeEvent<HTMLInputElement>) => {
     dispatch(setCameraLevel({ cameraLevel: levelData }));
     goOnStartPage();
+    setSearchParams(() => {
+      if (evt.target.checked) {
+        searchParams.append(levelData, LEVEL);
+      } else {
+        searchParams.delete(levelData);
+      }
+
+      return searchParams;
+    });
   };
 
-  const handleTypeInputChange = (typeData: CameraType) => () => {
+  const handleTypeInputChange = (typeData: CameraType) => (evt: ChangeEvent<HTMLInputElement>) => {
     dispatch(setCameraType({ cameraType: typeData }));
     goOnStartPage();
+    setSearchParams(() => {
+      if (evt.target.checked) {
+        searchParams.append(typeData, TYPE);
+      } else {
+        searchParams.delete(typeData);
+      }
+
+      return searchParams;
+    });
   };
 
-  const handleCategoryInputChange = (categoryData: Category) => () => {
+  const handleCategoryInputChange = (categoryData: Category) => (evt: ChangeEvent<HTMLInputElement>) => {
     dispatch(setCategory({ category: categoryData }));
     goOnStartPage();
+    setSearchParams(() => {
+      if (evt.target.checked) {
+        searchParams.append(categoryData, CATEGORY);
+      } else {
+        searchParams.delete(categoryData);
+      }
+
+      return searchParams;
+    });
   };
 
   const handlePriceFromInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +75,12 @@ function FilterForm(): JSX.Element {
       price = minimalPrice;
     }
 
+    setSearchParams(() => {
+      searchParams.set(PRICE_FROM, String(price));
+
+      return searchParams;
+    });
+
     dispatch(setPriceFrom({ priceFrom: price }));
     goOnStartPage();
   };
@@ -53,7 +88,7 @@ function FilterForm(): JSX.Element {
   const debouncedPriceFromInputHandler = debounce(handlePriceFromInputChange, DEBOUNCE_DELAY);
 
   const handlePriceToInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const price = Number(evt.target.value);
+    let price = Number(evt.target.value);
 
     if (price < 0) {
       evt.target.value = '';
@@ -65,6 +100,17 @@ function FilterForm(): JSX.Element {
       return;
     }
 
+    if (price > maximumPrice) {
+      evt.target.value = String(maximumPrice);
+      price = maximumPrice;
+    }
+
+    setSearchParams(() => {
+      searchParams.set(PRICE_TO, String(price));
+
+      return searchParams;
+    });
+
     dispatch(setPriceTo({ priceTo: price }));
     goOnStartPage();
   };
@@ -73,24 +119,33 @@ function FilterForm(): JSX.Element {
 
   const handleResetBtnClick = () => {
     dispatch(clearFilters());
+    setSearchParams(() => {
+      searchParams.delete(PRICE_FROM);
+      searchParams.delete(PRICE_TO);
+      Object.values(Category).forEach((value) => searchParams.delete(value));
+      Object.values(CameraLevel).forEach((value) => searchParams.delete(value));
+      Object.values(CameraType).forEach((value) => searchParams.delete(value));
+
+      return searchParams;
+    });
   };
 
   let fromPlaceholder = 'от';
   let upPlaceholder = 'до';
 
-  if (priceTo) {
-    upPlaceholder = String(priceTo);
+  if (priceLte) {
+    upPlaceholder = priceLte;
   }
 
-  if (!priceTo && maximumPrice) {
+  if (!priceLte && maximumPrice) {
     upPlaceholder = String(maximumPrice);
   }
 
-  if (priceFrom) {
-    fromPlaceholder = String(priceFrom);
+  if (priceGte) {
+    fromPlaceholder = priceGte;
   }
 
-  if (!priceFrom && minimalPrice) {
+  if (!priceGte && minimalPrice) {
     fromPlaceholder = String(minimalPrice);
   }
 
@@ -134,7 +189,7 @@ function FilterForm(): JSX.Element {
                 type="checkbox"
                 name={name}
                 onChange={handleCategoryInputChange(value)}
-                checked={categories.includes(value)}
+                checked={searchParams.get(value) !== null}
               />
               <span className="custom-checkbox__icon"></span>
               <span className="custom-checkbox__label">{value}</span>
@@ -152,8 +207,8 @@ function FilterForm(): JSX.Element {
                 type="checkbox"
                 name={name}
                 onChange={handleTypeInputChange(value)}
-                checked={types.includes(value)}
-                disabled={categories.includes(Category.Videocamera) && (value === CameraType.Film || value === CameraType.Snapshot)}
+                checked={searchParams.get(value) !== null}
+                disabled={searchParams.get(Category.Videocamera) !== null && (value === CameraType.Film || value === CameraType.Snapshot)}
               />
               <span className="custom-checkbox__icon"></span>
               <span className="custom-checkbox__label">{value}</span>
@@ -171,7 +226,7 @@ function FilterForm(): JSX.Element {
                 type="checkbox"
                 name={name}
                 onChange={handleLevelInputChange(value)}
-                checked={levels.includes(value)}
+                checked={searchParams.get(value) !== null}
               />
               <span className="custom-checkbox__icon"></span>
               <span className="custom-checkbox__label">{value}</span>

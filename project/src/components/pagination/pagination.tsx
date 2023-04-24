@@ -1,4 +1,4 @@
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link, useSearchParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCurrentPage, getPagesCount } from '../../store/ui/selectors';
@@ -6,6 +6,8 @@ import { changePage } from '../../store/ui/ui';
 import classnames from 'classnames';
 
 function Pagination(): JSX.Element {
+  const [searchParams] = useSearchParams();
+
   const dispatch = useAppDispatch();
 
   const pagesCount = useAppSelector(getPagesCount);
@@ -25,9 +27,7 @@ function Pagination(): JSX.Element {
         {previousPage >= 1 && (
           <li className='pagination__item'>
             <Link
-              to={`${AppRoute.Root}${generatePath(AppRoute.Catalog, {
-                page: String(previousPage),
-              })}`}
+              to={`${AppRoute.Root}${generatePath(AppRoute.Catalog, { page: String(previousPage) })}?${searchParams.toString()}`}
               className='pagination__link pagination__link--text'
               onClick={handlePageClick(previousPage)}
             >
@@ -44,9 +44,7 @@ function Pagination(): JSX.Element {
           return (
             <li key={page} className='pagination__item'>
               <Link
-                to={`${AppRoute.Root}${generatePath(AppRoute.Catalog, {
-                  page: String(page),
-                })}`}
+                to={`${AppRoute.Root}${generatePath(AppRoute.Catalog, { page: String(page) })}?${searchParams.toString()}`}
                 className={className}
                 onClick={handlePageClick(page)}
               >
@@ -59,9 +57,7 @@ function Pagination(): JSX.Element {
         {nextPage <= pagesCount && (
           <li className='pagination__item'>
             <Link
-              to={`${AppRoute.Root}${generatePath(AppRoute.Catalog, {
-                page: String(nextPage),
-              })}`}
+              to={`${AppRoute.Root}${generatePath(AppRoute.Catalog, { page: String(nextPage) })}?${searchParams.toString()}`}
               className='pagination__link pagination__link--text'
               onClick={handlePageClick(nextPage)}
             >

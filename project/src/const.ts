@@ -17,6 +17,16 @@ export const MODAL_OPEN_CLASS = 'scroll-lock';
 
 export const DEBOUNCE_DELAY = 1000;
 
+export const PRICE_FROM = 'price_gte';
+
+export const PRICE_TO = 'price_lte';
+
+export const LEVEL = 'level';
+
+export const TYPE = 'type';
+
+export const CATEGORY = 'category';
+
 // API + Backend
 
 export enum AppRoute {

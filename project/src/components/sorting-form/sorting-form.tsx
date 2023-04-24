@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { OrderData, START_PAGE, SortData, SortOrder} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOrderType, getSortType } from '../../store/ui/selectors';
@@ -22,10 +23,15 @@ const sortingOrder: SortingOrder = {
 };
 
 function SortingForm(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const dispatch = useAppDispatch();
 
   const sortType = useAppSelector(getSortType);
   const orderType = useAppSelector(getOrderType);
+
+  const currentSorting = searchParams.get('sort');
+  const currentOrder = searchParams.get('order');
 
   const handleSortInputCheck = (sortBy: SortData) => () => {
     if (sortType === SortData.Idle) {
@@ -34,6 +40,15 @@ function SortingForm(): JSX.Element {
 
     dispatch(changePage({ page: START_PAGE }));
     dispatch(setSortType({ sortType: sortBy }));
+
+    setSearchParams(() => {
+      const order = orderType ? orderType : OrderData.Ascending;
+
+      searchParams.set('sort', sortBy);
+      searchParams.set('order', order);
+
+      return searchParams;
+    });
   };
 
   const handleOrderInputCheck = (order: OrderData) => () => {
@@ -43,6 +58,15 @@ function SortingForm(): JSX.Element {
 
     dispatch(changePage({ page: START_PAGE }));
     dispatch(setOrderType({ orderType: order }));
+
+    setSearchParams(() => {
+      const sorting = sortType ? sortType : SortData.Price;
+
+      searchParams.set('sort', sorting);
+      searchParams.set('order', order);
+
+      return searchParams;
+    });
   };
 
   return (
@@ -57,7 +81,7 @@ function SortingForm(): JSX.Element {
                 id={name}
                 name='sort'
                 onChange={handleSortInputCheck(value)}
-                checked={value === sortType}
+                checked={currentSorting === value}
                 data-testid={value}
               />
               <label htmlFor={name}>{value}</label>
@@ -77,7 +101,7 @@ function SortingForm(): JSX.Element {
                 name='sort-icon'
                 aria-label={value}
                 onChange={handleOrderInputCheck(sortingOrder[name])}
-                checked={sortingOrder[name] === orderType}
+                checked={sortingOrder[name] === currentOrder}
               />
               <label htmlFor={name}>
                 <svg width='16' height='14' aria-hidden='true'>
