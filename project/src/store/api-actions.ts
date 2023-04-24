@@ -42,7 +42,7 @@ export const fetchCamerasPerPageAction = createAsyncThunk<
           ? levels.map((level) => `&level=${level}`).join('')
           : '',
         priceFromOptions: priceFrom ? `&price_gte=${priceFrom}` : '',
-        priceToOptions: priceTo ? `price_lte=${priceTo}` : '',
+        priceToOptions: priceTo ? `&price_lte=${priceTo}` : '',
       };
 
       const {

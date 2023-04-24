@@ -34,8 +34,8 @@ function SortingForm(): JSX.Element {
   const currentOrder = searchParams.get('order');
 
   const handleSortInputCheck = (sortBy: SortData) => () => {
-    if (sortType === SortData.Idle) {
-      dispatch(setSortType({ sortType: SortData.Price }));
+    if (orderType === OrderData.Idle) {
+      dispatch(setOrderType({ orderType: OrderData.Ascending }));
     }
 
     dispatch(changePage({ page: START_PAGE }));
@@ -53,7 +53,7 @@ function SortingForm(): JSX.Element {
 
   const handleOrderInputCheck = (order: OrderData) => () => {
     if (sortType === SortData.Idle) {
-      dispatch(changePage({ page: START_PAGE }));
+      dispatch(setSortType({ sortType: SortData.Price }));
     }
 
     dispatch(changePage({ page: START_PAGE }));
